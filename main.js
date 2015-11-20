@@ -77,21 +77,29 @@ function startSimulation() {
     numberOfVelocitySignChanges++;
   }
 
+  // Setup point record interval
+  var total = Math.round(t_f/dt);
+  var onePercent = total > 100 ? Math.round(0.01*total) : 1;
+  var pointOnePercent = onePercent > 10 ? Math.round(0.1*onePercent) : 1;
+
   var t = 0;
   for (var i = 0; t <= t_f; i++) {
     var roundedTime = t.toFixed(4);
     var roundedDistance =  x.toFixed(4);
     var roundedVelocity = v.toFixed(4);
 
-    // Add coordinates to textarea output
-    var readOut = roundedTime + "\t" + roundedDistance + "\t" + roundedVelocity;
-    var textarea = $('#text-coordinates');
-    var previousCoordinates = textarea.val();
-    textarea.val(previousCoordinates + readOut + "\n");
-
-    // Add every 10th point to the graph
-    if (i % 10 === 0) {
+    // Only log 100 points. This allows our program to be efficient but maintain
+    // the accuracy of Euler's method.
+    if (i % onePercent === 0) {
       data.datasets[0].data.push({x: roundedTime, y: roundedDistance});
+    }
+
+    // For the text output, we can print a thousand points
+    if (i % pointOnePercent === 0) {
+      var readOut = roundedTime + "\t" + roundedDistance + "\t" + roundedVelocity;
+      var textarea = $('#text-coordinates');
+      var previousCoordinates = textarea.val();
+      textarea.val(previousCoordinates + readOut + "\n");
     }
 
     // Update the motion of the object using Euler's method
