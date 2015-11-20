@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Differential Equations with a Nonlinear Oscillator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="lib/jquery-2.1.4.min.js"></script>
+    <script src="lib/moment.min.js"></script>
+    <script src="lib/Chart.min.js"></script>
+  </head>
+  <body>
+    <h1>Differential Equations with a Nonlinear Oscillator</h1>
+    <div id="container">
+      <div id="information">
+        <div id="parameters">
+          <form onsubmit="startSimulation(); return false;">
+            <h2>Starting Conditions</h2>
+            <div>
+              <label for="x_0">Initial distance <strong>x</strong> (m):
+                <input type="number" step="any" id="x_0" value="0.1" />
+              </label>
+            </div>
+            <div>
+              <label for="v_0">Initial velocity <strong>v</strong> (m/s):
+                <input type="number" step="any" id="v_0" value="0" />
+              </label>
+            </div>
+            <div>
+              <label for="t_f">Final Time <strong>t<sub>f</sub></strong> (s):
+                <input type="number" step="any" id="t_f" value="10" />
+              </label>
+            </div>
+            <div>
+              <label for="dt">Time Step <strong>dt</strong> (s):
+                <input type="number" step="any" id="dt" value="0.005" />
+              </label>
+            </div>
+            <h2>Oscillator of Choice</h2>
+            <div>
+              <label for="springOscillator">
+                <input type="radio" id="springOscillator" name="oscillatorType" value="springOscillator" checked/>
+                1. Spring Oscillator
+              </label>
+            </div>
+            <div>
+              <label for="k">Spring Constant <strong>k</strong> (N/m):
+                <input type="number" step="any" id="k" value="2" />
+              </label>
+              <br />
+              <label for="m">Mass <strong>m</strong> (kg):
+                <input type="number" step="any" id="m" value="1" />
+              </label>
+            </div>
+            <br />
+            <div>
+              <label for="simpleOscillatorWithArbitraryAngle">
+                <input type="radio" id="simpleOscillatorWithArbitraryAngle" name="oscillatorType" value="simpleOscillatorWithArbitraryAngle"/>
+                2. Simple Oscillator with Arbitrary Angle
+              </label>
+            </div>
+            <div>
+              <label for="g">Acceleration Due to Gravity <strong>g</strong> (m/s^2):
+                <input type="number" step="any" id="g" value="9.81" />
+              </label>
+              <br />
+              <label for="m">Length of Pendulum <strong>l</strong> (m):
+                <input type="number" step="any" id="l" value="5" />
+              </label>
+            </div>
+            <br/>
+            <input type="submit" value="Start Simulation" />
+          </form>
+        </div>
+        <div id="calculations">
+          <h2>Calculations</h2>
+          Angular Frequency <strong>&omega; </strong>(rad/s): <span id="angularFrequency"></span><br />
+          Period (s) <strong>T</strong>: <span id="period"></span><br />
+          T*&omega;: <span id="tomega"><br />
+        </div>
+      </div>
+      <div id="graph-container">
+        <canvas id="canvas"></canvas>
+      </div>
+      <p>Text output in the form "time distance velocity":</p>
+      <textarea id="text-coordinates"></textarea>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
